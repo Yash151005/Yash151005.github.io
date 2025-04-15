@@ -517,7 +517,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12">
             <AnimatedCard className="p-6">
               <p className="text-foreground/70 mb-6">
-                I'm always open to discussing new projects, opportunities, or partnerships.
+                I&apos;m always open to discussing new projects, opportunities, or partnerships.
               </p>
               <div className="space-y-6">
                 <div className="flex items-center">

@@ -87,7 +87,7 @@ export function Sparkles({
     return () => clearInterval(intervalId);
   }, [quantity, createSparkle]);
 
-  useAnimationFrame((t) => {
+  useAnimationFrame(() => {
     if (prefersReducedMotion.current) return;
     
     setSparkles(currentSparkles => 
