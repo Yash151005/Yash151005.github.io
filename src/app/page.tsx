@@ -374,21 +374,18 @@ export default function Home() {
                 <span className="mr-2">🎓</span> Education
               </h3>
               <div className="mb-6">
-                <h4 className="font-medium">Vishwakarma Institute of Information Technology, Pune</h4>
-                <p className="text-foreground/70">B.Tech in A.I. & D.S.</p>
-                <p className="text-foreground/70">2024 - 2027</p>
-                <p className="text-foreground/70">Pursuing</p>
+                <h4 className="font-medium">Bachelor of Technology in Artificial Intelligence & Data Science</h4>
+                <p className="text-foreground/70">Vishwakarma Institute of Information Technology, Pune</p>
+                <p className="text-foreground/70">2024 – 2027 (Expected)</p>
               </div>
               <div className="mb-6">
-                <h4 className="font-medium">Government Polytechnic Solapur</h4>
-                <p className="text-foreground/70">Diploma in Computer Technology</p>
-                <p className="text-foreground/70">2021 - 2024</p>
-                <p className="text-foreground/70">Percentage: 91.89</p>
+                <h4 className="font-medium">Diploma in Computer Technology</h4>
+                <p className="text-foreground/70">Government Polytechnic, Solapur</p>
+                <p className="text-foreground/70">2021 – 2024</p>
               </div>
               <div className="mb-6">
-                <h4 className="font-medium">Kai. Ravsaheb Patil Secondary School Paranda</h4>
-                <p className="text-foreground/70">Senior Secondary</p>
-                <p className="text-foreground/70">Percentage: 91.40</p>
+                <h4 className="font-medium">Senior Secondary Education</h4>
+                <p className="text-foreground/70">Kai. Ravsaheb Patil Secondary School, Paranda</p>
               </div>
             </BackgroundGradientCard>
             <SpotlightCard className="h-full">
