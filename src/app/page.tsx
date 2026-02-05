@@ -7,7 +7,7 @@ import { AnimatedGradientBackground } from "@/components/ui/animated-gradient-ba
 import { AnimatedCard } from "@/components/ui/animated-cards";
 import { Sparkles } from "@/components/ui/sparkles";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { IconBrandGithub, IconBrandLinkedin, IconBrandTwitter, IconMail, IconPhone, IconMapPin } from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandLinkedin, IconBrandTwitter, IconBrandInstagram, IconMail, IconPhone, IconMapPin } from "@tabler/icons-react";
 import { BackgroundGradientCard } from "@/components/ui/background-gradient-card";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { ContentCard } from "@/components/ui/content-card";
@@ -570,7 +570,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12">
             <AnimatedCard className="p-6">
               <p className="text-foreground/70 mb-6">
-                I&apos;m always open to discussing new projects, opportunities, or partnerships.
+                I&apos;m always open to discussing new projects, opportunities, or partnerships. Always ready to help also.
               </p>
               <div className="space-y-6">
                 <div className="flex items-center">
@@ -617,14 +617,14 @@ export default function Home() {
                   <IconBrandLinkedin className="h-6 w-6" />
                 </motion.a>
                 <motion.a 
-                  href="https://twitter.com" 
+                  href="https://www.instagram.com/yashpakale.swami" 
           target="_blank"
           rel="noopener noreferrer"
                   className="w-12 h-12 bg-card hover:bg-accent rounded-full flex items-center justify-center transition-colors"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <IconBrandTwitter className="h-6 w-6" />
+                  <IconBrandInstagram className="h-6 w-6" />
                 </motion.a>
               </div>
             </div>
@@ -640,7 +640,7 @@ export default function Home() {
           borderColor: "hsla(var(--border), 0.4)"
         }}
       >
-        <p>© {new Date().getFullYear()} Yash Pakale. All rights reserved.</p>
+        <p>© 2026 Yash Pakale. All rights reserved.</p>
       </footer>
     </AnimatedGradientBackground>
   );
