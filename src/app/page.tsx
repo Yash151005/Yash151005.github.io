@@ -26,19 +26,19 @@ export default function Home() {
 
   const skillCategories = [
     {
-      title: "Programming Languages",
-      skills: ["C", "JAVA", "SQL", "CPP", "JavaScript", "Python"],
-      icon: "💻",
+      title: "AI & Machine Learning",
+      skills: ["Machine Learning", "Computer Vision", "YOLO (Object Detection)", "Bias & Fairness Analysis", "Model Evaluation", "Feature Engineering", "Data Preprocessing"],
+      icon: "🧠",
     },
     {
-      title: "Web Development",
-      skills: ["HTML", "Bootstrap", "Android App Development", "SDLC"],
+      title: "Full-Stack & Web Development",
+      skills: ["React.js", "Node.js", "RESTful APIs", "HTML & CSS", "Bootstrap", "Authentication Systems", "Real-time Data Handling"],
       icon: "🌐",
     },
     {
-      title: "Soft Skills",
-      skills: ["Positive Attitude", "Time Management", "Teamwork", "Adaptability", "Competitive Programming"],
-      icon: "🧠",
+      title: "Programming, Data & Tools",
+      skills: ["Python", "JavaScript", "SQL", "MongoDB", "MySQL", "Git & GitHub", "Docker", "Jupyter Notebook"],
+      icon: "⚙️",
     },
   ];
 
