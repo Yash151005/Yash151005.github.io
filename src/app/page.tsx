@@ -7,7 +7,7 @@ import { AnimatedGradientBackground } from "@/components/ui/animated-gradient-ba
 import { AnimatedCard } from "@/components/ui/animated-cards";
 import { Sparkles } from "@/components/ui/sparkles";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { IconBrandGithub, IconBrandLinkedin, IconBrandTwitter, IconBrandInstagram, IconMail, IconPhone, IconMapPin } from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandLinkedin, IconBrandInstagram, IconMail, IconPhone, IconMapPin } from "@tabler/icons-react";
 import { BackgroundGradientCard } from "@/components/ui/background-gradient-card";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { ContentCard } from "@/components/ui/content-card";
