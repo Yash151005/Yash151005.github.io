@@ -13,11 +13,6 @@ import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { ContentCard } from "@/components/ui/content-card";
 import Image from "next/image";
 
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -34,11 +29,6 @@ const itemVariants = {
     scale: 1,
     transition: { duration: 0.5, type: "spring", stiffness: 100 } 
   }
-};
-
-const glowVariants = {
-  initial: { boxShadow: "0 0 20px rgba(99, 102, 241, 0.3)" },
-  hover: { boxShadow: "0 0 40px rgba(99, 102, 241, 0.6)" }
 };
 
 // Game Component
@@ -1014,7 +1004,7 @@ export default function Home() {
                 <h3 className="text-3xl md:text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-300">
                   Follow Me
                 </h3>
-                <p className="text-foreground/70 text-sm">Let's connect and collaborate</p>
+                <p className="text-foreground/70 text-sm">Let&apos;s connect and collaborate</p>
               </div>
               <div className="flex gap-8 justify-center md:justify-end flex-wrap">
                 {/* GitHub */}
