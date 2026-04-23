@@ -959,7 +959,7 @@ export default function Home() {
                     </motion.div>
                     <div>
                       <p className="text-foreground/60 text-sm">Email</p>
-                      <p className="text-foreground/90 font-semibold">yeshmhaling0022@gmail.com</p>
+                      <p className="text-foreground/90 font-semibold">yashpakale99@gmail.com</p>
                     </div>
                   </motion.div>
                   <motion.div 
