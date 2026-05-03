@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 interface AnimatedGradientBackgroundProps {
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export function AnimatedGradientBackground({
