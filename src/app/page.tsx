@@ -7,7 +7,8 @@ import { AnimatedGradientBackground } from "@/components/ui/animated-gradient-ba
 import { AnimatedCard } from "@/components/ui/animated-cards";
 import { Sparkles } from "@/components/ui/sparkles";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { IconBrandGithub, IconBrandLinkedin, IconBrandInstagram, IconMail, IconPhone, IconMapPin } from "@tabler/icons-react";
+import { ResumeModal } from "@/components/ui/resume-modal";
+import { IconBrandGithub, IconBrandLinkedin, IconBrandInstagram, IconMail, IconPhone, IconMapPin, IconFileText } from "@tabler/icons-react";
 import { BackgroundGradientCard } from "@/components/ui/background-gradient-card";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { ContentCard } from "@/components/ui/content-card";
@@ -164,12 +165,13 @@ export default function Home() {
   const [showGame, setShowGame] = useState(false);
   const [gameScore, setGameScore] = useState(0);
   const [gameActive, setGameActive] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   const navigationItems = [
     { title: "About", href: "#about" },
     { title: "Skills", href: "#skills" },
-    { title: "Accomplishments", href: "#accomplishments" },
     { title: "Projects", href: "#projects" },
+    { title: "Accomplishments", href: "#accomplishments" },
     { title: "Contact", href: "#contact" },
   ];
 
@@ -414,7 +416,7 @@ export default function Home() {
 
             {/* Desktop Nav */}
             <motion.nav 
-              className="hidden md:flex space-x-8"
+              className="hidden md:flex items-center space-x-6"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -429,6 +431,15 @@ export default function Home() {
                   <span className="absolute left-0 right-0 bottom-0 h-[2px] bg-gradient-to-r from-indigo-600 to-slate-700 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                 </Link>
               ))}
+              <a 
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-slate-700 rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-indigo-600/50 transition-all"
+              >
+                <IconFileText size={18} />
+                View Resume
+              </a>
               <div className="flex items-center">
                 <ThemeToggle />
               </div>
@@ -579,6 +590,17 @@ export default function Home() {
                 whileTap={{ scale: 0.95 }}
               >
                 🚀 Get in Touch
+              </motion.a>
+              <motion.a 
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <IconFileText size={20} />
+                📄 View Resume PDF
               </motion.a>
               <motion.a 
                 href="#projects" 
@@ -1086,6 +1108,9 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Resume Modal */}
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
 
       {/* Footer */}
       <motion.footer 
