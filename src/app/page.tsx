@@ -915,7 +915,7 @@ export default function Home() {
                   overlayClassName="group-hover:from-background/98 group-hover:via-background/95 group-hover:to-background/90"
                 >
                   <motion.div 
-                    className="flex h-full flex-col justify-end p-4 rounded-md"
+                    className="flex h-full flex-col justify-end hover:bg-black/50 p-4 rounded-md"
                     whileHover={{ rotateZ: -1 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
