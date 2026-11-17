@@ -171,6 +171,7 @@ export default function Home() {
     { title: "About", href: "#about" },
     { title: "Skills", href: "#skills" },
     { title: "Projects", href: "#projects" },
+    { title: "Publications", href: "#publications" },
     { title: "Accomplishments", href: "#accomplishments" },
     { title: "Contact", href: "#contact" },
   ];
@@ -194,6 +195,19 @@ export default function Home() {
   ];
 
   const projects = [
+    {
+      category: "🏢 Industry Project",
+      items: [
+        {
+          title: "DataForge AI",
+          description: "An AI-powered Data Preparation Pipeline system completed as an industry project with Rubiscape. Built to streamline data preparation workflows and transform raw data into reliable, analysis-ready datasets for intelligent decision-making.",
+          techStack: "Artificial Intelligence, Data Preparation, Machine Learning Pipelines",
+          github: "",
+          organization: "Rubiscape",
+          bgImage: "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        }
+      ]
+    },
     {
       category: "🤖 AI / Machine Learning Projects",
       items: [
@@ -314,6 +328,23 @@ export default function Home() {
       ],
       icon: "🎯",
       bgImage: "https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    }
+  ];
+
+  const publications = [
+    {
+      title: "Student Attention Detection System",
+      description: "Real-Time Classroom Engagement Monitoring Using Computer Vision and Deep Learning.",
+      link: "https://ieeexplore.ieee.org/document/11735961",
+      year: "Published in IEEE Xplore",
+      icon: "👁️"
+    },
+    {
+      title: "Brain Frequency Analysis Concentration Level Prediction",
+      description: "A research study exploring brain-frequency signals for concentration-level prediction.",
+      link: "https://ieeexplore.ieee.org/document/11747711/",
+      year: "Published in IEEE Xplore",
+      icon: "🧠"
     }
   ];
 
@@ -808,6 +839,11 @@ export default function Home() {
                             whileHover={{ y: -10 }}
                             transition={{ type: "spring", stiffness: 400, damping: 30 }}
                           >
+                            {"organization" in project && project.organization && (
+                              <span className="inline-flex w-fit items-center rounded-full border border-cyan-300/30 bg-cyan-400/15 px-3 py-1 mb-4 text-xs font-semibold uppercase tracking-wider text-cyan-200">
+                                Industry project · {project.organization}
+                              </span>
+                            )}
                             <h3 className="text-2xl font-bold mb-3 text-white line-clamp-2">{project.title}</h3>
                             <p className="text-white/95 mb-4 line-clamp-3 leading-relaxed">
                               {project.description}
@@ -816,27 +852,29 @@ export default function Home() {
                               <p className="text-white/80 text-sm mb-2 font-semibold">Tech Stack:</p>
                               <p className="text-white/75 text-xs">{project.techStack}</p>
                             </div>
-                            <motion.a
-                              href={project.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-white hover:text-blue-200 inline-flex items-center group/link transition-all"
-                              whileHover={{ x: 5 }}
-                              whileTap={{ scale: 0.95 }}
-                            >
-                              <svg className="w-5 h-5 mr-2 group-hover/link:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                              </svg>
-                              View on GitHub
-                              <svg
-                                className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
+                            {project.github && (
+                              <motion.a
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-white hover:text-blue-200 inline-flex items-center group/link transition-all"
+                                whileHover={{ x: 5 }}
+                                whileTap={{ scale: 0.95 }}
                               >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                              </svg>
-                            </motion.a>
+                                <svg className="w-5 h-5 mr-2 group-hover/link:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                                View on GitHub
+                                <svg
+                                  className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                              </motion.a>
+                            )}
                           </motion.div>
                         </ContentCard>
                       </motion.div>
@@ -908,6 +946,59 @@ export default function Home() {
                     </ul>
                   </motion.div>
                 </ContentCard>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Publications Section */}
+      <section id="publications" className="relative py-32 px-6 md:px-12 bg-gradient-to-b from-background/60 via-cyan-950/20 to-background/40 backdrop-blur-md border-y border-cyan-500/20">
+        <div className="absolute left-0 top-0 w-1 h-24 bg-gradient-to-b from-cyan-500 to-transparent"></div>
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-cyan-300 font-semibold uppercase tracking-[0.25em] text-sm mb-4">Research & Impact</p>
+            <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-indigo-400 to-indigo-300">
+              IEEE Publications
+            </h2>
+            <p className="text-foreground/70 max-w-2xl mx-auto mt-6 text-lg">
+              Peer-reviewed research published and indexed in IEEE Xplore.
+            </p>
+          </motion.div>
+          <motion.div
+            className="grid md:grid-cols-2 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            {publications.map((publication) => (
+              <motion.div key={publication.link} variants={itemVariants}>
+                <SpotlightCard className="h-full p-8 border border-cyan-500/20 hover:border-cyan-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/20">
+                  <div className="flex items-start gap-5">
+                    <span className="text-4xl" aria-hidden="true">{publication.icon}</span>
+                    <div className="flex-1">
+                      <p className="text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3">{publication.year}</p>
+                      <h3 className="text-2xl font-bold mb-3 text-foreground">{publication.title}</h3>
+                      <p className="text-foreground/70 leading-relaxed mb-6">{publication.description}</p>
+                      <motion.a
+                        href={publication.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-cyan-300 hover:text-cyan-200 font-semibold transition-colors"
+                        whileHover={{ x: 5 }}
+                      >
+                        Read on IEEE Xplore
+                        <span aria-hidden="true">↗</span>
+                      </motion.a>
+                    </div>
+                  </div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </motion.div>
