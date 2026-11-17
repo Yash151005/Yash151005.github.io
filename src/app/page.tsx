@@ -832,10 +832,10 @@ export default function Home() {
                         <ContentCard
                           className="min-h-[400px] group hover:shadow-2xl hover:shadow-indigo-500/30 transition-all duration-300 overflow-hidden border border-indigo-500/10 hover:border-indigo-500/40 rounded-lg"
                           bgImage={project.bgImage}
-                          overlayClassName="group-hover:from-background/98 group-hover:via-background/95 group-hover:to-background/90"
+                          overlayClassName="from-background/35 via-background/70 to-background/95 group-hover:from-background/55 group-hover:via-background/85 group-hover:to-background/95"
                         >
                           <motion.div 
-                            className="flex h-full flex-col justify-end hover:bg-black/50 p-4 rounded-md"
+                            className="flex h-full flex-col justify-end p-4 rounded-md"
                             whileHover={{ y: -10 }}
                             transition={{ type: "spring", stiffness: 400, damping: 30 }}
                           >
