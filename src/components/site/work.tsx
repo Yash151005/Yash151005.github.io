@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
-import { engineering, featured, projects, type Project } from "@/lib/data";
+import { featured, moreProjects, projectCount, projectGroups, type Project } from "@/lib/data";
 import { ArrowUpRight, EASE, Reveal, Section, Tag } from "./primitives";
 import { cn } from "@/lib/utils";
 
@@ -95,30 +96,117 @@ function PipelineVisual() {
   );
 }
 
-function ProjectCard({ p, i, compact = false }: { p: Project; i: number; compact?: boolean }) {
-  const Wrapper = p.github ? "a" : "div";
+function ProjectCard({ p, i }: { p: Project; i: number }) {
   return (
     <Reveal delay={i * 0.05} className="h-full">
-      <Wrapper
-        {...(p.github ? { href: p.github, target: "_blank", rel: "noopener noreferrer" } : {})}
-        className="card card-hover group flex h-full flex-col p-5"
-      >
+      <article className="card card-hover group relative flex h-full flex-col p-5">
         <div className="flex items-center justify-between">
           <span className="text-xs font-medium text-signal">{p.kind}</span>
-          {p.github && (
-            <FaGithub className="h-4 w-4 text-mute transition-colors group-hover:text-paper" aria-label="View on GitHub" />
-          )}
+          <div className="flex items-center gap-3">
+            {p.demo && (
+              <a
+                href={p.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative z-10 inline-flex items-center gap-1 text-xs text-dim transition-colors hover:text-paper"
+              >
+                Live demo <ArrowUpRight />
+              </a>
+            )}
+            {p.github && <FaGithub className="h-4 w-4 text-mute transition-colors group-hover:text-paper" aria-hidden="true" />}
+          </div>
         </div>
-        <h3 className="mt-3 text-lg font-semibold tracking-tight">{p.title}</h3>
+        <h3 className="mt-3 text-lg font-semibold tracking-tight">
+          {p.github ? (
+            <a href={p.github} target="_blank" rel="noopener noreferrer" className="after:absolute after:inset-0">
+              {p.title}
+            </a>
+          ) : (
+            p.title
+          )}
+        </h3>
         <p className="mt-1 text-sm text-paper/80">{p.summary}</p>
-        {!compact && <p className="mt-3 text-sm leading-relaxed text-dim">{p.description}</p>}
+        <p className="mt-3 text-sm leading-relaxed text-dim">{p.description}</p>
         <div className="mt-auto flex flex-wrap gap-1.5 pt-5">
           {p.stack.map((s) => (
             <Tag key={s}>{s}</Tag>
           ))}
         </div>
-      </Wrapper>
+      </article>
     </Reveal>
+  );
+}
+
+function MoreProjects() {
+  const [open, setOpen] = useState(false);
+  const count = moreProjects.reduce((n, g) => n + g.projects.length, 0);
+
+  return (
+    <div className="mt-14">
+      <Reveal className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <h3 className="text-sm font-medium text-dim">
+          Additional projects <span className="font-mono text-mute">({count})</span>
+        </h3>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="more-projects"
+            className="rounded-lg border border-line px-3 py-1.5 text-sm text-dim transition-colors hover:text-paper"
+          >
+            {open ? "Hide list" : "Show all"}
+          </button>
+          <a
+            href="https://github.com/Yash151005?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1 text-sm text-dim transition-colors hover:text-paper"
+          >
+            All repositories
+            <ArrowUpRight className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
+        </div>
+      </Reveal>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            id="more-projects"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.5, ease: EASE }}
+            className="overflow-hidden"
+          >
+            <div className="grid gap-8 pt-2 lg:grid-cols-3">
+              {moreProjects.map((g) => (
+                <div key={g.label}>
+                  <div className="mb-3 text-xs font-medium uppercase tracking-[0.12em] text-signal">{g.label}</div>
+                  <ul className="divide-y divide-line border-y border-line">
+                    {g.projects.map((p) => (
+                      <li key={p.title}>
+                        <a
+                          href={p.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group block py-3 transition-colors"
+                        >
+                          <div className="flex items-center justify-between gap-2 text-sm font-medium text-paper/90 group-hover:text-paper">
+                            {p.title}
+                            <ArrowUpRight className="shrink-0 text-mute transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper" />
+                          </div>
+                          <p className="mt-0.5 text-xs leading-relaxed text-dim">{p.summary}</p>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -127,8 +215,8 @@ export function Work() {
     <Section
       id="work"
       eyebrow="Projects"
-      title="AI & data science work"
-      intro="Selected machine learning, computer vision and data projects, from model to deployment."
+      title="AI, data science & software work"
+      intro={`${projectCount} projects across agentic AI, machine learning, computer vision and full-stack software, from raw data to deployed product.`}
     >
       {/* Featured */}
       <Reveal>
@@ -153,10 +241,20 @@ export function Work() {
                 )
               )}
             </ul>
-            <div className="mt-auto flex flex-wrap gap-1.5 pt-6">
+            <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-6">
               {featured.stack.map((s) => (
                 <Tag key={s}>{s}</Tag>
               ))}
+              {featured.github && (
+                <a
+                  href={featured.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-auto inline-flex items-center gap-1.5 text-sm text-dim transition-colors hover:text-paper"
+                >
+                  <FaGithub className="h-4 w-4" /> Source
+                </a>
+              )}
             </div>
           </div>
           <div className="min-w-0">
@@ -165,29 +263,21 @@ export function Work() {
         </article>
       </Reveal>
 
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        {projects.map((p, i) => (
-          <ProjectCard key={p.slug} p={p} i={i} />
-        ))}
-      </div>
+      {projectGroups.map((g) => (
+        <div key={g.id} className="mt-14">
+          <Reveal className="mb-4 flex items-baseline justify-between gap-3 border-b border-line pb-3">
+            <h3 className="text-base font-semibold tracking-tight">{g.label}</h3>
+            <span className="font-mono text-[11px] text-mute">{g.focus}</span>
+          </Reveal>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {g.projects.map((p, i) => (
+              <ProjectCard key={p.slug} p={p} i={i} />
+            ))}
+          </div>
+        </div>
+      ))}
 
-      <Reveal className="mt-14 mb-4 flex items-center justify-between">
-        <h3 className="text-sm font-medium text-dim">Other engineering projects</h3>
-        <a
-          href="https://github.com/Yash151005"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex items-center gap-1 text-sm text-dim transition-colors hover:text-paper"
-        >
-          All repositories
-          <ArrowUpRight className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </a>
-      </Reveal>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {engineering.map((p, i) => (
-          <ProjectCard key={p.slug} p={p} i={i} compact />
-        ))}
-      </div>
+      <MoreProjects />
     </Section>
   );
 }

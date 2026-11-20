@@ -15,11 +15,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Yash Pakale | AI Engineer & Data Scientist",
   description:
-    "Yash Pakale builds machine learning, computer vision and data systems. IEEE-published researcher, hackathon winner, B.Tech AI & Data Science at VIIT Pune.",
+    "Yash Pakale builds agentic AI, RAG systems, machine learning and computer vision products. IEEE-published researcher, hackathon winner, B.Tech AI & Data Science at VIIT Pune.",
   authors: [{ name: "Yash Pakale" }],
   openGraph: {
     title: "Yash Pakale | AI Engineer & Data Scientist",
-    description: "Machine learning, computer vision and data pipelines. IEEE-published. Based in Pune, India.",
+    description: "Agentic AI, RAG, machine learning and computer vision. IEEE-published. Based in Pune, India.",
     type: "website",
   },
 };

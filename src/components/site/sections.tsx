@@ -59,9 +59,10 @@ export function About() {
       <div className="grid gap-4 md:grid-cols-5">
         <Reveal className="card p-6 md:col-span-3">
           <p className="leading-relaxed text-paper/85">
-            I&apos;m an AI & Data Science undergraduate at VIIT Pune with a diploma in Computer Technology. I focus on
-            ML that works outside the notebook: clean data, sound evaluation, and models deployed behind real
-            products.
+            I&apos;m an AI & Data Science undergraduate at VIIT Pune with a diploma in Computer Technology. I build LLM
+            agents, RAG systems and ML pipelines, and I focus on work that holds up outside the notebook: clean data,
+            sound evaluation and models deployed behind real products. I&apos;m open to internships, collaborations and
+            hackathons.
           </p>
           <div className="mt-6 space-y-5">
             {stack.map((g) => (

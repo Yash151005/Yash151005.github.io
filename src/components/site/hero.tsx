@@ -3,17 +3,17 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { profile } from "@/lib/data";
+import { profile, projectCount } from "@/lib/data";
 import { ArrowUpRight, EASE } from "./primitives";
 
 const stats = [
+  { value: `${projectCount}`, label: "Projects built" },
   { value: "2", label: "IEEE publications" },
   { value: "1st", label: "AIForge Hackathon" },
   { value: "Top 10%", label: "Mumbai Hacks (5,500+)" },
-  { value: "5", label: "AI / data systems built" },
 ];
 
-const focus = ["Machine Learning", "Computer Vision", "Data Pipelines", "Responsible AI"];
+const focus = ["Agentic AI & RAG", "Machine Learning", "Computer Vision", "Data Pipelines", "Responsible AI"];
 
 const fade = (delay: number) => ({
   initial: { opacity: 0, y: 14 },
@@ -42,12 +42,12 @@ export function Hero() {
               Yash Pakale
             </motion.h1>
             <motion.p {...fade(0.14)} className="mt-2 text-xl font-medium md:text-2xl">
-              <span className="text-gradient">AI Engineer & Data Scientist</span>
+              <span className="text-gradient">{profile.role}</span>
             </motion.p>
 
             <motion.p {...fade(0.2)} className="mt-5 max-w-xl text-base leading-relaxed text-dim">
-              I build machine learning and computer vision systems, plus the data pipelines that feed them. Two IEEE
-              papers, an industry project with Rubiscape, and a B.Tech in AI & Data Science at VIIT Pune.
+              I build agentic AI, RAG systems and machine learning pipelines, taking them from raw data to products people
+              use. Two IEEE papers, an industry project with Rubiscape, and a B.Tech in AI & Data Science at VIIT Pune.
             </motion.p>
 
             <motion.ul {...fade(0.26)} className="mt-6 flex flex-wrap gap-2">
