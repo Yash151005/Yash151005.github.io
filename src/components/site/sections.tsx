@@ -1,160 +1,106 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useState } from "react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { education, profile, publications, recognition, stack } from "@/lib/data";
-import { ArrowUpRight, EASE, Reveal, SectionHeader, Serif, useLocalTime } from "./primitives";
+import { ArrowUpRight, Reveal, Section, Tag } from "./primitives";
 
 export function Research() {
   return (
-    <section id="research" className="mx-auto max-w-[1400px] scroll-mt-14 px-5 pt-32 md:px-10 md:pt-44">
-      <SectionHeader
-        index="02"
-        label="Research"
-        title={
-          <>
-            Peer-reviewed work, <Serif className="text-dim">published in IEEE Xplore.</Serif>
-          </>
-        }
-      />
-      <div className="grid gap-px border border-line bg-line md:grid-cols-2">
+    <Section id="research" eyebrow="Research" title="Peer-reviewed publications">
+      <div className="grid gap-4 md:grid-cols-2">
         {publications.map((p, i) => (
-          <Reveal key={p.link} delay={i * 0.08} className="bg-ink">
+          <Reveal key={p.link} delay={i * 0.06} className="h-full">
             <a
               href={p.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex h-full flex-col justify-between gap-16 p-7 transition-colors duration-500 hover:bg-ink-2 md:p-10"
+              className="card card-hover group flex h-full flex-col p-6"
             >
-              <div className="flex items-start justify-between font-mono text-[11px] uppercase tracking-[0.16em] text-dim">
-                <span>[{i + 1}]&nbsp;&nbsp;{p.venue}</span>
-                <ArrowUpRight className="h-4 w-4 text-paper transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-signal" />
+              <div className="flex items-center justify-between text-xs">
+                <span className="rounded-full bg-signal/15 px-2.5 py-0.5 font-medium text-signal">{p.venue}</span>
+                <ArrowUpRight className="h-4 w-4 text-mute transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper" />
               </div>
-              <div>
-                <h3 className="text-2xl leading-[1.15] tracking-[-0.025em] md:text-[1.75rem]">{p.title}</h3>
-                <div className="mt-6 flex items-center justify-between border-t border-line pt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-mute">
-                  <span>{p.area}</span>
-                  <span className="text-dim transition-colors group-hover:text-paper">Read paper</span>
-                </div>
-              </div>
+              <h3 className="mt-4 line-clamp-3 text-base font-semibold leading-snug md:text-lg">{p.title}</h3>
+              <p className="mt-auto pt-5 text-xs text-dim">{p.area}</p>
             </a>
           </Reveal>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
 export function Recognition() {
   return (
-    <section id="recognition" className="mx-auto max-w-[1400px] scroll-mt-14 px-5 pt-32 md:px-10 md:pt-44">
-      <SectionHeader
-        index="03"
-        label="Recognition"
-        title={
-          <>
-            Competing against thousands, <Serif className="text-dim">building under pressure.</Serif>
-          </>
-        }
-      />
-      <ul className="border-t border-line">
+    <Section id="recognition" eyebrow="Recognition" title="Awards & certifications">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {recognition.map((r, i) => (
-          <motion.li
-            key={r.title}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.8, ease: EASE, delay: i * 0.05 }}
-            className="group grid grid-cols-12 items-baseline gap-x-6 gap-y-1 border-b border-line py-6 transition-colors hover:bg-ink-2 md:py-7"
-          >
-            <span className="col-span-3 text-2xl font-medium tracking-[-0.04em] text-signal md:col-span-2 md:pl-2 md:text-4xl">
-              {r.place}
-            </span>
-            <span className="col-span-9 text-lg tracking-[-0.02em] md:col-span-5 md:text-2xl">{r.title}</span>
-            <span className="col-span-9 col-start-4 text-sm text-dim md:col-span-4 md:col-start-auto">{r.org}</span>
-            <span className="hidden text-right font-mono text-[11px] text-mute md:col-span-1 md:block md:pr-2">{r.year}</span>
-          </motion.li>
+          <Reveal key={r.title} delay={i * 0.04}>
+            <div className="card flex items-center gap-4 p-4">
+              <span className="grid h-11 min-w-11 shrink-0 place-items-center rounded-lg bg-signal/10 px-2 text-sm font-semibold text-signal">
+                {r.place}
+              </span>
+              <div className="min-w-0">
+                <div className="truncate text-sm font-medium">{r.title}</div>
+                <div className="truncate text-xs text-dim">{r.org}</div>
+              </div>
+            </div>
+          </Reveal>
         ))}
-      </ul>
-    </section>
+      </div>
+    </Section>
   );
 }
 
 export function About() {
   return (
-    <section id="about" className="mx-auto max-w-[1400px] scroll-mt-14 px-5 pt-32 md:px-10 md:pt-44">
-      <SectionHeader
-        index="04"
-        label="About"
-        title={
-          <>
-            Engineer first. <Serif className="text-dim">Curious always.</Serif>
-          </>
-        }
-      />
-      <div className="grid gap-16 md:grid-cols-12 md:gap-8">
-        <Reveal className="space-y-6 text-lg leading-relaxed text-paper/80 md:col-span-6">
-          <p>
-            I&apos;m a B.Tech student in Artificial Intelligence &amp; Data Science at VIIT Pune, and I got here
-            through a diploma in Computer Technology. That diploma made me practical: I care about models
-            that hold up in production, not just ones that score well in a notebook.
+    <Section id="about" eyebrow="About" title="Skills & background">
+      <div className="grid gap-4 md:grid-cols-5">
+        <Reveal className="card p-6 md:col-span-3">
+          <p className="leading-relaxed text-paper/85">
+            I&apos;m an AI & Data Science undergraduate at VIIT Pune with a diploma in Computer Technology. I focus on
+            ML that works outside the notebook: clean data, sound evaluation, and models deployed behind real
+            products.
           </p>
-          <p>
-            Most of my work sits where ML meets real software. That means computer vision pipelines, data
-            preparation systems and fairness tooling, plus the React and Node.js products around them. I&apos;ve
-            published two papers in IEEE Xplore, shipped an industry project with Rubiscape, and placed at
-            hackathons against thousands of other builders.
-          </p>
-          <p className="text-paper">
-            I&apos;m looking for teams that ship ambitious products, where I can learn fast and own real problems
-            from start to finish.
-          </p>
+          <div className="mt-6 space-y-5">
+            {stack.map((g) => (
+              <div key={g.label}>
+                <div className="mb-2 text-xs font-medium text-dim">{g.label}</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {g.items.map((s) => (
+                    <Tag key={s} className="text-paper/80">
+                      {s}
+                    </Tag>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </Reveal>
 
-        <div className="md:col-span-5 md:col-start-8">
-          <Reveal className="mb-6 font-mono text-[11px] uppercase tracking-[0.18em] text-mute">Education</Reveal>
-          <div className="relative border-l border-line">
+        <Reveal delay={0.06} className="card p-6 md:col-span-2">
+          <div className="text-xs font-medium text-dim">Education</div>
+          <ol className="mt-4 space-y-5 border-l border-line pl-5">
             {education.map((e, i) => (
-              <Reveal key={e.title} delay={i * 0.08} className="relative pb-10 pl-7 last:pb-0">
+              <li key={e.title} className="relative">
                 <span
-                  className={`absolute -left-[4.5px] top-1.5 h-2 w-2 ${i === 0 ? "bg-signal" : "border border-line bg-ink"}`}
+                  className={`absolute -left-[25px] top-1.5 h-2 w-2 rounded-full ${
+                    i === 0 ? "bg-signal" : "border border-line bg-ink"
+                  }`}
                 />
-                <div className="font-mono text-[11px] tabular-nums text-dim">{e.period}</div>
-                <div className="mt-2 text-lg tracking-[-0.02em]">{e.title}</div>
-                <div className="mt-1 text-sm text-dim">{e.place}</div>
-              </Reveal>
+                <div className="font-mono text-[11px] text-mute">{e.period}</div>
+                <div className="mt-1 text-sm font-medium">{e.title}</div>
+                <div className="text-xs text-dim">{e.place}</div>
+              </li>
             ))}
-          </div>
-
-          <Reveal className="mb-6 mt-16 font-mono text-[11px] uppercase tracking-[0.18em] text-mute">Toolkit</Reveal>
-          <div className="space-y-6">
-            {stack.map((g, i) => (
-              <Reveal key={g.label} delay={i * 0.06} className="grid grid-cols-[110px_1fr] gap-4 border-t border-line pt-4">
-                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">{g.label}</span>
-                <span className="text-[15px] leading-relaxed text-paper/85">{g.items.join(", ")}</span>
-              </Reveal>
-            ))}
-          </div>
-        </div>
+          </ol>
+          <div className="mt-6 border-t border-line pt-5 text-xs font-medium text-dim">Industry</div>
+          <div className="mt-2 text-sm font-medium">Rubiscape</div>
+          <div className="text-xs text-dim">DataForge AI, data preparation pipeline</div>
+        </Reveal>
       </div>
-    </section>
-  );
-}
-
-export function Marquee() {
-  const words = ["Machine Learning", "Computer Vision", "Data Pipelines", "Full-Stack", "Responsible AI", "Research"];
-  const row = [...words, ...words];
-  return (
-    <div className="mt-32 overflow-hidden border-y border-line py-6 md:mt-44" aria-hidden="true">
-      <div className="marquee flex w-max gap-12 whitespace-nowrap">
-        {[...row, ...row].map((w, i) => (
-          <span key={i} className="flex items-center gap-12 text-4xl tracking-[-0.03em] text-paper/80 md:text-6xl">
-            {i % 2 === 0 ? w : <Serif className="text-dim">{w}</Serif>}
-            <span className="text-2xl text-signal">✦</span>
-          </span>
-        ))}
-      </div>
-    </div>
+    </Section>
   );
 }
 
@@ -166,95 +112,74 @@ export function Contact() {
     setTimeout(() => setCopied(false), 1800);
   };
 
-  const links = [
-    { label: "GitHub", href: profile.github, meta: "@Yash151005" },
-    { label: "LinkedIn", href: profile.linkedin, meta: "in/yash-pakale" },
-    { label: "Résumé", href: profile.resume, meta: "PDF" },
-    { label: "Instagram", href: profile.instagram, meta: "@yashpakale.swami" },
-  ];
-
   return (
-    <section id="contact" className="mx-auto max-w-[1400px] scroll-mt-14 px-5 pt-32 md:px-10 md:pt-44">
-      <Reveal className="flex items-center gap-4 border-t border-line pt-5 font-mono text-[11px] uppercase tracking-[0.2em] text-dim">
-        <span className="text-signal">05</span>
-        <span>Contact</span>
-        <span className="h-px flex-1 bg-line" />
-      </Reveal>
-
-      <Reveal delay={0.05}>
-        <h2 className="mt-12 text-[clamp(3rem,10vw,9.5rem)] font-medium leading-[0.9] tracking-[-0.055em]">
-          Let&apos;s build
-          <br />
-          <Serif className="text-dim">something</Serif> real<span className="text-signal">.</span>
-        </h2>
-      </Reveal>
-
-      <div className="mt-16 grid gap-12 md:mt-20 md:grid-cols-12">
-        <Reveal className="md:col-span-7">
-          <p className="mb-6 max-w-md text-dim">
-            Hiring for an ML, AI or full-stack role, or just want to talk shop? My inbox is open, and I
-            usually reply within a day.
-          </p>
-          <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={`mailto:${profile.email}`}
-              className="group inline-flex items-center gap-3 text-[clamp(1.25rem,3vw,2.25rem)] tracking-[-0.03em]"
-            >
-              <span className="link-underline">{profile.email}</span>
-              <ArrowUpRight className="h-5 w-5 text-signal transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
-            </a>
-            <button
-              onClick={copy}
-              className="border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-dim transition-colors hover:border-paper/40 hover:text-paper"
-            >
-              {copied ? "Copied ✓" : "Copy"}
-            </button>
+    <section id="contact" className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-24 md:px-8 md:pt-28">
+      <Reveal className="card relative overflow-hidden p-8 md:p-12">
+        <div className="hero-glow pointer-events-none absolute inset-0" aria-hidden="true" />
+        <div className="relative grid items-center gap-8 md:grid-cols-[1fr_auto]">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.16em] text-signal">Contact</p>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">Let&apos;s work together</h2>
+            <p className="mt-3 max-w-md text-dim">
+              Open to AI/ML engineering and data science internships and full-time roles. I usually reply within a day.
+            </p>
           </div>
-          <p className="mt-4 font-mono text-[12px] text-mute">{profile.phone}</p>
-        </Reveal>
-
-        <Reveal delay={0.1} className="md:col-span-4 md:col-start-9">
-          <ul className="border-t border-line">
-            {links.map((l) => (
-              <li key={l.label} className="border-b border-line">
-                <a
-                  href={l.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between py-4 transition-colors"
-                >
-                  <span className="text-lg tracking-[-0.02em] transition-transform duration-500 group-hover:translate-x-1.5">
-                    {l.label}
-                  </span>
-                  <span className="flex items-center gap-3 font-mono text-[11px] text-mute transition-colors group-hover:text-paper">
-                    {l.meta}
-                    <ArrowUpRight className="transition-colors group-hover:text-signal" />
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-      </div>
+          <div className="flex flex-col gap-3 md:items-end">
+            <div className="flex flex-wrap items-center gap-2">
+              <a
+                href={`mailto:${profile.email}`}
+                className="inline-flex items-center gap-2 rounded-lg bg-paper px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-white"
+              >
+                {profile.email}
+              </a>
+              <button
+                onClick={copy}
+                className="rounded-lg border border-line px-3 py-2.5 text-sm text-dim transition-colors hover:text-paper"
+              >
+                {copied ? "Copied" : "Copy"}
+              </button>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-dim">
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-line px-3 py-2 transition-colors hover:text-paper"
+              >
+                <FaLinkedin className="h-3.5 w-3.5" /> LinkedIn
+              </a>
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-line px-3 py-2 transition-colors hover:text-paper"
+              >
+                <FaGithub className="h-3.5 w-3.5" /> GitHub
+              </a>
+              <a
+                href={profile.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-line px-3 py-2 transition-colors hover:text-paper"
+              >
+                Résumé <ArrowUpRight />
+              </a>
+            </div>
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }
 
 export function Footer() {
-  const time = useLocalTime(profile.timezone);
   return (
-    <footer className="mx-auto mt-32 max-w-[1400px] px-5 pb-10 md:mt-44 md:px-10">
-      <div className="grid gap-6 border-t border-line pt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-mute md:grid-cols-3">
-        <span>© 2026 Yash Pakale</span>
-        <span className="md:text-center">
-          Designed &amp; built by me · Next.js on GitHub Pages
-        </span>
-        <span className="flex justify-between gap-6 md:justify-end">
-          <span className="tabular-nums">Pune {time ?? "--:--:--"}</span>
-          <a href="#top" className="text-dim transition-colors hover:text-signal">
-            Back to top ↑
-          </a>
-        </span>
+    <footer className="mx-auto mt-20 max-w-6xl px-5 pb-10 md:px-8">
+      <div className="flex flex-col justify-between gap-3 border-t border-line pt-6 text-xs text-mute sm:flex-row">
+        <span>© 2026 Yash Pakale · {profile.location}</span>
+        <a href="#top" className="transition-colors hover:text-paper">
+          Back to top ↑
+        </a>
       </div>
     </footer>
   );

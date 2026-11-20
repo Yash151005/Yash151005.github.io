@@ -1,26 +1,24 @@
 "use client";
 
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { profile } from "@/lib/data";
-import { EASE, useLocalTime } from "./primitives";
+import { EASE } from "./primitives";
 import { cn } from "@/lib/utils";
 
 const sections = [
-  { id: "work", label: "Work" },
+  { id: "work", label: "Projects" },
   { id: "research", label: "Research" },
-  { id: "recognition", label: "Recognition" },
+  { id: "recognition", label: "Awards" },
   { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
 ];
 
 export function Nav() {
-  const time = useLocalTime(profile.timezone);
   const [active, setActive] = useState<string>("");
   const [open, setOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40 });
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -33,7 +31,13 @@ export function Nav() {
       const el = document.getElementById(s.id);
       if (el) observer.observe(el);
     });
-    return () => observer.disconnect();
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -49,35 +53,35 @@ export function Nav() {
 
   return (
     <>
-      <motion.div
-        className="fixed inset-x-0 top-0 z-50 h-px origin-left bg-signal"
-        style={{ scaleX: progress }}
-        aria-hidden="true"
-      />
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-line/70 bg-ink/75 backdrop-blur-xl">
-        <div className="mx-auto flex h-14 max-w-[1400px] items-center justify-between px-5 md:px-10">
-          <a href="#top" className="group flex items-center gap-3 text-sm font-medium tracking-tight">
-            <span className="grid h-7 w-7 place-items-center border border-line font-mono text-[11px] transition-colors group-hover:border-signal group-hover:text-signal">
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300",
+          scrolled || open ? "border-line/80 bg-ink/80 backdrop-blur-xl" : "border-transparent"
+        )}
+      >
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
+          <a href="#top" className="flex items-center gap-2.5 text-sm font-semibold tracking-tight">
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-signal to-signal-2 text-xs font-bold text-ink">
               YP
             </span>
             <span className="hidden sm:inline">Yash Pakale</span>
           </a>
 
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-1 rounded-full border border-line bg-ink-2/70 p-1 md:flex" aria-label="Primary">
             {sections.map((s) => (
               <a
                 key={s.id}
                 href={`#${s.id}`}
                 className={cn(
-                  "relative px-3 py-1.5 text-[13px] text-dim transition-colors hover:text-paper",
+                  "relative rounded-full px-3.5 py-1.5 text-[13px] text-dim transition-colors hover:text-paper",
                   active === s.id && "text-paper"
                 )}
               >
                 {active === s.id && (
                   <motion.span
                     layoutId="nav-active"
-                    className="absolute inset-x-3 -bottom-[17px] h-px bg-signal"
-                    transition={{ duration: 0.5, ease: EASE }}
+                    className="absolute inset-0 -z-10 rounded-full bg-ink-3"
+                    transition={{ duration: 0.4, ease: EASE }}
                   />
                 )}
                 {s.label}
@@ -85,29 +89,25 @@ export function Nav() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-4">
-            <span className="hidden font-mono text-[11px] tabular-nums text-dim lg:inline">
-              PUNE {time ?? "--:--:--"} IST
-            </span>
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setPaletteOpen(true)}
-              className="hidden items-center gap-2 border border-line px-2.5 py-1 font-mono text-[11px] text-dim transition-colors hover:border-paper/40 hover:text-paper md:flex"
+              className="hidden items-center gap-1 rounded-md border border-line px-2 py-1 font-mono text-[11px] text-mute transition-colors hover:text-paper lg:flex"
               aria-label="Open command menu"
             >
               <kbd className="font-mono">Ctrl</kbd>
-              <span className="text-mute">+</span>
               <kbd className="font-mono">K</kbd>
             </button>
             <a
               href={profile.resume}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden bg-paper px-3.5 py-1.5 text-[13px] font-medium text-ink transition-colors hover:bg-signal sm:inline-block"
+              className="hidden rounded-lg bg-paper px-3.5 py-1.5 text-[13px] font-medium text-ink transition-colors hover:bg-white sm:inline-block"
             >
               Résumé
             </a>
             <button
-              className="flex h-8 w-8 flex-col items-center justify-center gap-1.5 md:hidden"
+              className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label="Toggle menu"
               aria-expanded={open}
@@ -124,19 +124,14 @@ export function Nav() {
               initial={{ height: 0 }}
               animate={{ height: "auto" }}
               exit={{ height: 0 }}
-              transition={{ duration: 0.5, ease: EASE }}
+              transition={{ duration: 0.4, ease: EASE }}
               className="overflow-hidden border-t border-line md:hidden"
               aria-label="Mobile"
             >
-              <ul className="px-5 py-6">
-                {sections.map((s, i) => (
+              <ul className="px-5 py-4">
+                {sections.map((s) => (
                   <li key={s.id}>
-                    <a
-                      href={`#${s.id}`}
-                      onClick={() => setOpen(false)}
-                      className="flex items-baseline gap-4 py-2 text-3xl font-medium tracking-tight"
-                    >
-                      <span className="font-mono text-[11px] text-signal">0{i + 1}</span>
+                    <a href={`#${s.id}`} onClick={() => setOpen(false)} className="block py-2.5 text-base font-medium">
                       {s.label}
                     </a>
                   </li>
@@ -146,9 +141,9 @@ export function Nav() {
                     href={profile.resume}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 inline-block bg-paper px-4 py-2 text-sm font-medium text-ink"
+                    className="mt-3 inline-block rounded-lg bg-paper px-4 py-2 text-sm font-medium text-ink"
                   >
-                    Résumé ↗
+                    Résumé
                   </a>
                 </li>
               </ul>
@@ -239,7 +234,7 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
             <motion.div
               role="dialog"
               aria-label="Command menu"
-              className="w-full max-w-lg border border-line bg-ink-2 shadow-2xl shadow-black/60"
+              className="w-full max-w-lg overflow-hidden rounded-xl border border-line bg-ink-2 shadow-2xl shadow-black/60"
               initial={{ y: 12, scale: 0.98 }}
               animate={{ y: 0, scale: 1 }}
               exit={{ y: 8, scale: 0.98 }}
@@ -272,7 +267,7 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
                         onClose();
                       }}
                       className={cn(
-                        "flex w-full items-center justify-between px-3 py-2.5 text-left text-sm transition-colors",
+                        "flex w-full items-center justify-between rounded-md px-3 py-2.5 text-left text-sm transition-colors",
                         i === index ? "bg-ink-3 text-paper" : "text-dim"
                       )}
                     >
@@ -296,7 +291,7 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
       <AnimatePresence>
         {toast && (
           <motion.div
-            className="fixed bottom-6 left-1/2 z-[80] -translate-x-1/2 border border-line bg-ink-2 px-4 py-2 font-mono text-xs text-paper"
+            className="fixed bottom-6 left-1/2 z-[80] -translate-x-1/2 rounded-lg border border-line bg-ink-2 px-4 py-2 font-mono text-xs text-paper"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}

@@ -1,84 +1,83 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-import { featured, projects } from "@/lib/data";
-import { ArrowUpRight, EASE, Reveal, SectionHeader, Serif } from "./primitives";
+import { motion } from "framer-motion";
+import { FaGithub } from "react-icons/fa";
+import { engineering, featured, projects, type Project } from "@/lib/data";
+import { ArrowUpRight, EASE, Reveal, Section, Tag } from "./primitives";
 import { cn } from "@/lib/utils";
 
 const stages = ["Ingest", "Profile", "Clean", "Validate", "Ready"];
 
 const rawRows = [
-  ["cust_id", "region", "spend", "joined"],
-  ["1042", "pune ", "12,400", "2023/04/11"],
-  ["1043", "NULL", "—", "11-04-23"],
-  ["1043", "Mumbai", "8100", "2023-04-11"],
-  ["1045", "PUNE", "n/a", "Apr 12 23"],
+  ["id", "region", "spend"],
+  ["1042", "pune ", "12,400"],
+  ["1043", "NULL", "—"],
+  ["1045", "PUNE", "n/a"],
 ];
 const cleanRows = [
-  ["cust_id", "region", "spend", "joined"],
-  ["1042", "Pune", "12400.0", "2023-04-11"],
-  ["1043", "Mumbai", "8100.0", "2023-04-11"],
-  ["1045", "Pune", "9850.0*", "2023-04-12"],
+  ["id", "region", "spend"],
+  ["1042", "Pune", "12400.0"],
+  ["1043", "Mumbai", "8100.0"],
+  ["1045", "Pune", "9850.0"],
 ];
 
 function PipelineVisual() {
   return (
-    <div className="relative flex h-full flex-col justify-between gap-8 border border-line bg-ink-2 p-5 font-mono text-[10.5px] md:p-7">
+    <div className="flex h-full flex-col gap-6 rounded-xl border border-line bg-ink p-5 font-mono text-[11px]">
       <div className="flex items-center justify-between text-mute">
-        <span>dataforge://pipeline/run_0193</span>
-        <span className="flex items-center gap-2 text-green-400/90">
+        <span>pipeline / run_0193</span>
+        <span className="flex items-center gap-1.5 rounded-full bg-green-400/10 px-2 py-0.5 text-green-400">
           <span className="h-1.5 w-1.5 rounded-full bg-green-400" /> passing
         </span>
       </div>
 
-      <div className="relative flex items-center justify-between">
-        <div className="absolute inset-x-2 top-1/2 h-px -translate-y-1/2 bg-line" />
+      <div className="relative flex items-center justify-between px-1">
+        <div className="absolute inset-x-4 top-3 h-px bg-line" />
         <motion.div
-          className="absolute left-2 top-1/2 h-px -translate-y-1/2 bg-signal"
+          className="absolute left-4 top-3 h-px bg-gradient-to-r from-signal to-signal-2"
           initial={{ width: 0 }}
-          whileInView={{ width: "calc(100% - 1rem)" }}
+          whileInView={{ width: "calc(100% - 2rem)" }}
           viewport={{ once: true }}
-          transition={{ duration: 2.2, ease: EASE, delay: 0.3 }}
+          transition={{ duration: 1.8, ease: EASE, delay: 0.2 }}
         />
         {stages.map((s, i) => (
           <motion.div
             key={s}
-            className="relative z-10 flex flex-col items-center gap-2"
-            initial={{ opacity: 0.3 }}
+            className="relative z-10 flex flex-col items-center gap-1.5"
+            initial={{ opacity: 0.35 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 + i * 0.45, duration: 0.4 }}
+            transition={{ delay: 0.2 + i * 0.35, duration: 0.4 }}
           >
-            <span className="grid h-6 w-6 place-items-center border border-line bg-ink-2 text-[9px] text-paper">
-              {String(i + 1).padStart(2, "0")}
+            <span className="grid h-6 w-6 place-items-center rounded-full border border-line bg-ink-3 text-[10px] text-paper">
+              {i + 1}
             </span>
-            <span className="text-[9.5px] uppercase tracking-wider text-dim">{s}</span>
+            <span className="text-[10px] text-dim">{s}</span>
           </motion.div>
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3">
         {[
           { title: "raw.csv", rows: rawRows, bad: true },
           { title: "ready.parquet", rows: cleanRows, bad: false },
         ].map((t) => (
-          <div key={t.title} className="min-w-0 overflow-hidden border border-line">
+          <div key={t.title} className="min-w-0 overflow-hidden rounded-lg border border-line">
             <div className="border-b border-line bg-ink-3 px-2.5 py-1.5 text-mute">{t.title}</div>
             <table className="w-full table-fixed">
               <tbody>
                 {t.rows.map((r, ri) => (
-                  <tr key={ri} className={cn("border-b border-line/60 last:border-0", ri === 0 && "text-mute")}>
+                  <tr key={ri} className="border-b border-line/60 last:border-0">
                     {r.map((c, ci) => {
-                      const flagged = t.bad && ri > 0 && /NULL|—|n\/a|pune |PUNE|11-04|Apr|8100$/.test(c);
+                      const flagged = t.bad && ri > 0 && /NULL|—|n\/a|pune |PUNE|,/.test(c);
                       return (
                         <td
                           key={ci}
                           className={cn(
-                            "truncate px-2 py-1 text-paper/80",
+                            "truncate px-2.5 py-1 text-paper/80",
                             ri === 0 && "text-mute",
-                            flagged && "text-signal",
-                            t.bad && ri === 3 && "line-through decoration-signal/60"
+                            flagged && "text-rose-400",
+                            !t.bad && ri > 0 && "text-emerald-300/90"
                           )}
                         >
                           {c}
@@ -92,155 +91,103 @@ function PipelineVisual() {
           </div>
         ))}
       </div>
-
-      <div className="flex flex-wrap gap-x-6 gap-y-1 text-mute">
-        <span>
-          <span className="text-signal">●</span> type coercion
-        </span>
-        <span>
-          <span className="text-signal">●</span> dedup
-        </span>
-        <span>
-          <span className="text-signal">●</span> imputation
-        </span>
-        <span>
-          <span className="text-signal">●</span> schema checks
-        </span>
-      </div>
     </div>
   );
 }
 
-export function Work() {
-  const [open, setOpen] = useState<string | null>(null);
-
+function ProjectCard({ p, i, compact = false }: { p: Project; i: number; compact?: boolean }) {
+  const Wrapper = p.github ? "a" : "div";
   return (
-    <section id="work" className="mx-auto max-w-[1400px] scroll-mt-14 px-5 pt-32 md:px-10 md:pt-44">
-      <SectionHeader
-        index="01"
-        label="Selected work"
-        title={
-          <>
-            Systems I&apos;ve designed, <Serif className="text-dim">trained</Serif> and shipped.
-          </>
-        }
-        aside={<span className="hidden sm:inline">{projects.length + 1} projects</span>}
-      />
+    <Reveal delay={i * 0.05} className="h-full">
+      <Wrapper
+        {...(p.github ? { href: p.github, target: "_blank", rel: "noopener noreferrer" } : {})}
+        className="card card-hover group flex h-full flex-col p-5"
+      >
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-medium text-signal">{p.kind}</span>
+          {p.github && (
+            <FaGithub className="h-4 w-4 text-mute transition-colors group-hover:text-paper" aria-label="View on GitHub" />
+          )}
+        </div>
+        <h3 className="mt-3 text-lg font-semibold tracking-tight">{p.title}</h3>
+        <p className="mt-1 text-sm text-paper/80">{p.summary}</p>
+        {!compact && <p className="mt-3 text-sm leading-relaxed text-dim">{p.description}</p>}
+        <div className="mt-auto flex flex-wrap gap-1.5 pt-5">
+          {p.stack.map((s) => (
+            <Tag key={s}>{s}</Tag>
+          ))}
+        </div>
+      </Wrapper>
+    </Reveal>
+  );
+}
 
+export function Work() {
+  return (
+    <Section
+      id="work"
+      eyebrow="Projects"
+      title="AI & data science work"
+      intro="Selected machine learning, computer vision and data projects, from model to deployment."
+    >
       {/* Featured */}
       <Reveal>
-        <article className="grid gap-10 border-t border-line pt-10 md:grid-cols-12 md:gap-12">
-          <div className="flex min-w-0 flex-col md:col-span-5">
-            <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em]">
-              <span className="bg-signal px-2 py-0.5 text-ink">Featured</span>
+        <article className="card grid gap-8 p-6 md:grid-cols-2 md:p-8">
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2 text-xs">
+              <span className="rounded-full bg-signal/15 px-2.5 py-0.5 font-medium text-signal">Featured</span>
               <span className="text-dim">
                 {featured.kind} · {featured.org}
               </span>
             </div>
-            <h3 className="mt-6 text-5xl font-medium tracking-[-0.045em] md:text-6xl">{featured.title}</h3>
-            <p className="mt-3 font-serif text-2xl italic text-dim">{featured.summary}</p>
-            <p className="mt-8 max-w-md leading-relaxed text-paper/75">{featured.description}</p>
-            <ul className="mt-8 flex flex-wrap gap-2">
-              {featured.stack.map((s) => (
-                <li key={s} className="border border-line px-2.5 py-1 font-mono text-[11px] text-dim">
-                  {s}
-                </li>
-              ))}
+            <h3 className="mt-4 text-2xl font-semibold tracking-tight">{featured.title}</h3>
+            <p className="mt-1 text-paper/80">{featured.summary}</p>
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-dim">{featured.description}</p>
+            <ul className="mt-5 space-y-1.5 text-sm text-dim">
+              {["Automated type coercion & deduplication", "Missing-value imputation", "Schema & quality validation"].map(
+                (x) => (
+                  <li key={x} className="flex items-center gap-2">
+                    <span className="h-1 w-1 rounded-full bg-signal-2" />
+                    {x}
+                  </li>
+                )
+              )}
             </ul>
+            <div className="mt-auto flex flex-wrap gap-1.5 pt-6">
+              {featured.stack.map((s) => (
+                <Tag key={s}>{s}</Tag>
+              ))}
+            </div>
           </div>
-          <div className="min-w-0 md:col-span-7">
+          <div className="min-w-0">
             <PipelineVisual />
           </div>
         </article>
       </Reveal>
 
-      {/* Index */}
-      <div className="mt-24 md:mt-32">
-        <Reveal className="mb-4 hidden grid-cols-12 gap-6 font-mono text-[10.5px] uppercase tracking-[0.18em] text-mute md:grid">
-          <span className="col-span-1">No.</span>
-          <span className="col-span-4">Project</span>
-          <span className="col-span-4">What it does</span>
-          <span className="col-span-2">Discipline</span>
-          <span className="col-span-1 text-right">Code</span>
-        </Reveal>
-        <ul className="border-t border-line">
-          {projects.map((p, i) => {
-            const isOpen = open === p.slug;
-            return (
-              <motion.li
-                key={p.slug}
-                className="border-b border-line"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.9, ease: EASE, delay: i * 0.04 }}
-              >
-                  <button
-                    onClick={() => setOpen(isOpen ? null : p.slug)}
-                    aria-expanded={isOpen}
-                    className="group relative isolate grid w-full grid-cols-12 items-baseline gap-x-6 gap-y-2 py-7 text-left md:py-8"
-                  >
-                    <span className="absolute inset-0 -z-10 origin-bottom scale-y-0 bg-ink-2 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-y-100" />
-                    <span className="col-span-2 font-mono text-[11px] text-mute transition-colors group-hover:text-signal md:col-span-1 md:pl-2">
-                      {String(i + 2).padStart(2, "0")}
-                    </span>
-                    <span className="col-span-10 text-2xl font-medium tracking-[-0.03em] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2 md:col-span-4 md:text-[2rem]">
-                      {p.title}
-                    </span>
-                    <span className="col-span-10 col-start-3 text-sm text-dim md:col-span-4 md:col-start-auto md:text-[15px]">
-                      {p.summary}
-                    </span>
-                    <span className="col-span-10 col-start-3 font-mono text-[11px] uppercase tracking-[0.14em] text-mute md:col-span-2 md:col-start-auto">
-                      {p.kind}
-                    </span>
-                    <span className="absolute right-2 top-8 font-mono text-lg text-dim transition-transform duration-300 md:static md:col-span-1 md:text-right">
-                      <span className={cn("inline-block transition-transform duration-500", isOpen && "rotate-45 text-signal")}>
-                        +
-                      </span>
-                    </span>
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.55, ease: EASE }}
-                        className="overflow-hidden"
-                      >
-                        <div className="grid grid-cols-12 gap-6 pb-10">
-                          <div className="col-span-12 md:col-span-6 md:col-start-6">
-                            <p className="max-w-xl leading-relaxed text-paper/80">{p.description}</p>
-                            <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-                              <ul className="flex flex-wrap gap-2">
-                                {p.stack.map((s) => (
-                                  <li key={s} className="border border-line px-2.5 py-1 font-mono text-[11px] text-dim">
-                                    {s}
-                                  </li>
-                                ))}
-                              </ul>
-                              {p.github && (
-                                <a
-                                  href={p.github}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="group/l inline-flex items-center gap-2 text-sm text-paper"
-                                >
-                                  <span className="link-underline">View source on GitHub</span>
-                                  <ArrowUpRight className="text-signal transition-transform group-hover/l:-translate-y-0.5 group-hover/l:translate-x-0.5" />
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-              </motion.li>
-            );
-          })}
-        </ul>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        {projects.map((p, i) => (
+          <ProjectCard key={p.slug} p={p} i={i} />
+        ))}
       </div>
-    </section>
+
+      <Reveal className="mt-14 mb-4 flex items-center justify-between">
+        <h3 className="text-sm font-medium text-dim">Other engineering projects</h3>
+        <a
+          href="https://github.com/Yash151005"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center gap-1 text-sm text-dim transition-colors hover:text-paper"
+        >
+          All repositories
+          <ArrowUpRight className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </a>
+      </Reveal>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {engineering.map((p, i) => (
+          <ProjectCard key={p.slug} p={p} i={i} compact />
+        ))}
+      </div>
+    </Section>
   );
 }

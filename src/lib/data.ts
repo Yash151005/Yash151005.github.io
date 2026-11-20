@@ -1,6 +1,6 @@
 export const profile = {
   name: "Yash Pakale",
-  role: "AI Engineer & Full-Stack Developer",
+  role: "AI Engineer & Data Scientist",
   location: "Pune, India",
   timezone: "Asia/Kolkata",
   email: "yashpakale99@gmail.com",
@@ -29,39 +29,37 @@ export const featured: Project = {
   org: "Rubiscape",
   summary: "AI-powered data preparation pipeline",
   description:
-    "An AI-driven data preparation pipeline built with Rubiscape. It takes messy raw data and turns it into reliable, analysis-ready datasets, automating the cleaning and validation work that usually slows down every analytics team.",
-  stack: ["Machine Learning", "Data Pipelines", "Data Quality", "Python"],
+    "Turns messy raw data into validated, analysis-ready datasets by automating profiling, cleaning and schema checks.",
+  stack: ["Python", "Machine Learning", "Data Pipelines", "Data Quality"],
 };
 
+/** AI, ML and data science work, shown first. */
 export const projects: Project[] = [
   {
     slug: "autofix",
     title: "AutoFix AI",
     kind: "Computer Vision",
     summary: "Vehicle damage detection & repair-cost estimation",
-    description:
-      "End-to-end vision pipeline: a YOLO model finds exterior damage in a photo, classifies it, and turns that into a repair-cost estimate in real time. It covers the whole path from image upload to a result someone can act on.",
-    stack: ["YOLO", "Python", "Computer Vision", "Model Deployment"],
+    description: "A YOLO model finds and classifies exterior damage in a photo, then estimates the repair cost in real time.",
+    stack: ["YOLO", "Python", "Deep Learning", "Deployment"],
     github: "https://github.com/yash151005/AutoFix-AI",
   },
   {
     slug: "saferoute",
     title: "SafeRoute.AI",
-    kind: "Machine Learning",
-    summary: "Real-time safety scoring for navigation routes",
-    description:
-      "Scores routes by combining crime records, time-of-day patterns and environmental signals, so a navigation choice can weigh safety as well as distance.",
-    stack: ["Python", "Machine Learning", "Data Engineering", "APIs"],
+    kind: "Predictive ML",
+    summary: "Real-time safety scoring for routes",
+    description: "Scores routes using crime, time-of-day and environmental data, served through REST APIs.",
+    stack: ["Python", "ML", "Data Engineering", "APIs"],
     github: "https://github.com/yash151005/SafeRoute-AI",
   },
   {
     slug: "reliefreach",
     title: "ReliefReach AI",
     kind: "Predictive ML",
-    summary: "Disaster-impact prediction for governments & NGOs",
-    description:
-      "Combines satellite, weather and on-the-ground reports to forecast where a disaster will hit hardest and where relief resources should go first.",
-    stack: ["Predictive Modelling", "Data Pipelines", "Cloud Architecture"],
+    summary: "Disaster-impact prediction",
+    description: "Combines satellite, weather and ground reports to forecast impact and prioritise relief resources.",
+    stack: ["Forecasting", "Data Pipelines", "Cloud"],
     github: "https://github.com/yash151005/ReliefReach-AI",
   },
   {
@@ -69,28 +67,29 @@ export const projects: Project[] = [
     title: "BiasScope",
     kind: "Responsible AI",
     summary: "Bias & fairness auditing for ML models",
-    description:
-      "Audits trained models for bias across demographic groups using industry-standard fairness metrics, then explains the gaps through visual reports.",
-    stack: ["Python", "Fairness Metrics", "Statistics", "Visual Analytics"],
+    description: "Measures disparate impact and demographic parity across groups, with visual reports.",
+    stack: ["Python", "Fairness Metrics", "Statistics", "Data Viz"],
     github: "https://github.com/yash151005/BiasScope",
   },
+];
+
+/** Engineering work, shown in a smaller secondary list. */
+export const engineering: Project[] = [
   {
     slug: "teamsync",
     title: "TeamSync",
     kind: "Full-Stack",
     summary: "Skill-based hackathon teammate matching",
-    description:
-      "A mobile-first platform that matches hackathon participants by skills, roles and interests, with OTP-based authentication and live availability.",
-    stack: ["React", "Node.js", "Recommendation", "OTP Auth"],
+    description: "MERN platform with OTP auth and recommendation-based matching.",
+    stack: ["React", "Node.js", "MongoDB"],
     github: "https://github.com/yash151005/TeamSync",
   },
   {
     slug: "bidding",
     title: "Freelance Bidding Platform",
     kind: "Full-Stack",
-    summary: "Auction marketplace with multi-criteria bid selection",
-    description:
-      "A MERN marketplace whose bidding algorithm automatically selects the best bid on multiple criteria, not just the lowest price.",
+    summary: "Multi-criteria auction marketplace",
+    description: "Picks the best bid on price, quality, timeline and rating.",
     stack: ["MongoDB", "Express", "React", "Node.js"],
     github: "https://github.com/yash151005/Freelance-Bidding-Platform",
   },
@@ -112,31 +111,30 @@ export const publications = [
 ];
 
 export const recognition = [
-  { year: "2024", place: "1st", title: "AIForge Hackathon", org: "Vishwakarma Institute of Technology, Pune" },
-  { year: "2024", place: "2nd", title: "Open Innovation Hackathon", org: "PES's Modern College of Engineering, Pune" },
+  { year: "2024", place: "1st", title: "AIForge Hackathon", org: "VIT Pune" },
+  { year: "2024", place: "2nd", title: "Open Innovation Hackathon", org: "PES's Modern College of Engineering" },
   { year: "2024", place: "Top 10%", title: "Mumbai Hacks", org: "Out of 5,500+ participants" },
-  { year: "2024", place: "2nd", title: "GDG Gen AI Quiz", org: "Google Developer Groups" },
-  { year: "2024", place: "3rd", title: "State Level Quiz, Engineers' Day", org: "Institution of Engineers (India), Latur" },
+  { year: "2024", place: "2nd", title: "GDG Generative AI Quiz", org: "Google Developer Groups" },
+  { year: "2024", place: "3rd", title: "State-Level Engineers' Day Quiz", org: "Institution of Engineers (India)" },
   { year: "2024", place: "Cert.", title: "Artificial Intelligence Bootcamp", org: "C-DAC Pune" },
 ];
 
 export const stack = [
   {
-    label: "AI / ML",
-    items: ["Python", "Machine Learning", "Computer Vision", "YOLO", "Feature Engineering", "Model Evaluation", "Bias & Fairness", "Jupyter"],
+    label: "Machine Learning",
+    items: ["Python", "Deep Learning", "Computer Vision", "YOLO", "Feature Engineering", "Model Evaluation", "Fairness Metrics"],
   },
   {
-    label: "Web",
-    items: ["JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Express", "REST APIs", "Auth Systems", "HTML & CSS"],
+    label: "Data Science",
+    items: ["Data Analysis", "Statistics", "Predictive Analytics", "ETL & Pipelines", "Data Visualization", "Jupyter", "SQL"],
   },
   {
-    label: "Data & Infra",
-    items: ["SQL", "MySQL", "MongoDB", "Docker", "Git & GitHub", "Real-time Data"],
+    label: "Engineering",
+    items: ["JavaScript", "React", "Node.js", "REST APIs", "MongoDB", "MySQL", "Docker", "Git"],
   },
 ];
 
 export const education = [
-  { period: "2024 — 2027", title: "B.Tech, Artificial Intelligence & Data Science", place: "Vishwakarma Institute of Information Technology, Pune" },
-  { period: "2021 — 2024", title: "Diploma, Computer Technology", place: "Government Polytechnic, Solapur" },
-  { period: "Before 2021", title: "Secondary School", place: "Kai. Ravsaheb Patil Secondary School, Paranda" },
+  { period: "2024 – 2027", title: "B.Tech, Artificial Intelligence & Data Science", place: "VIIT, Pune" },
+  { period: "2021 – 2024", title: "Diploma, Computer Technology", place: "Government Polytechnic, Solapur" },
 ];
