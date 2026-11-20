@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { education, profile, publications, recognition, stack } from "@/lib/data";
 import { ArrowUpRight, Reveal, Section, Tag } from "./primitives";
+import { ContactForm } from "./contact-form";
 
 export function Research() {
   return (
@@ -37,7 +38,7 @@ export function Recognition() {
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {recognition.map((r, i) => (
           <Reveal key={r.title} delay={i * 0.04}>
-            <div className="card flex items-center gap-4 p-4">
+            <div className="card card-hover flex items-center gap-4 p-4">
               <span className="grid h-11 min-w-11 shrink-0 place-items-center rounded-lg bg-signal/10 px-2 text-sm font-semibold text-signal">
                 {r.place}
               </span>
@@ -115,57 +116,66 @@ export function Contact() {
 
   return (
     <section id="contact" className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-24 md:px-8 md:pt-28">
-      <Reveal className="card relative overflow-hidden p-8 md:p-12">
+      <Reveal className="card relative overflow-hidden">
         <div className="hero-glow pointer-events-none absolute inset-0" aria-hidden="true" />
-        <div className="relative grid items-center gap-8 md:grid-cols-[1fr_auto]">
-          <div>
+        <div className="relative grid md:grid-cols-[2fr_3fr]">
+          {/* Left: pitch + direct channels */}
+          <div className="flex flex-col border-b border-line p-8 md:border-b-0 md:border-r md:p-10">
             <p className="text-xs font-medium uppercase tracking-[0.16em] text-signal">Contact</p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">Let&apos;s work together</h2>
-            <p className="mt-3 max-w-md text-dim">
-              Open to AI/ML engineering and data science internships and full-time roles. I usually reply within a day.
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">Let&apos;s build something together</h2>
+            <p className="mt-3 text-dim">
+              Open to AI/ML engineering and data science internships, full-time roles and collaborations. Drop a message
+              and I&apos;ll reply within a day.
             </p>
+
+            <div className="mt-6 inline-flex items-center gap-2 self-start rounded-full border border-line bg-ink/60 px-3 py-1 text-xs text-dim">
+              <span className="status-dot h-1.5 w-1.5 rounded-full bg-green-400" />
+              Available · {profile.location}
+            </div>
+
+            <ul className="mt-8 space-y-2">
+              <li>
+                <button
+                  onClick={copy}
+                  className="group flex w-full items-center justify-between gap-3 rounded-lg border border-line bg-ink/40 px-4 py-3 text-left transition-colors hover:border-signal/50"
+                >
+                  <span className="min-w-0">
+                    <span className="block text-[11px] text-mute">Email</span>
+                    <span className="block truncate text-sm">{profile.email}</span>
+                  </span>
+                  <span className="shrink-0 font-mono text-[11px] text-mute transition-colors group-hover:text-signal">
+                    {copied ? "✓ copied" : "copy"}
+                  </span>
+                </button>
+              </li>
+              {[
+                { href: profile.linkedin, label: "LinkedIn", sub: "Connect professionally", icon: <FaLinkedin className="h-4 w-4" /> },
+                { href: profile.github, label: "GitHub", sub: "@Yash151005", icon: <FaGithub className="h-4 w-4" /> },
+              ].map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between gap-3 rounded-lg border border-line bg-ink/40 px-4 py-3 transition-colors hover:border-signal/50"
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className="text-dim transition-colors group-hover:text-paper">{l.icon}</span>
+                      <span>
+                        <span className="block text-sm">{l.label}</span>
+                        <span className="block text-[11px] text-mute">{l.sub}</span>
+                      </span>
+                    </span>
+                    <ArrowUpRight className="text-mute transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper" />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="flex flex-col gap-3 md:items-end">
-            <div className="flex flex-wrap items-center gap-2">
-              <a
-                href={`mailto:${profile.email}`}
-                className="inline-flex items-center gap-2 rounded-lg bg-paper px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-white"
-              >
-                {profile.email}
-              </a>
-              <button
-                onClick={copy}
-                className="rounded-lg border border-line px-3 py-2.5 text-sm text-dim transition-colors hover:text-paper"
-              >
-                {copied ? "Copied" : "Copy"}
-              </button>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-dim">
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-line px-3 py-2 transition-colors hover:text-paper"
-              >
-                <FaLinkedin className="h-3.5 w-3.5" /> LinkedIn
-              </a>
-              <a
-                href={profile.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-line px-3 py-2 transition-colors hover:text-paper"
-              >
-                <FaGithub className="h-3.5 w-3.5" /> GitHub
-              </a>
-              <a
-                href={profile.resume}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-line px-3 py-2 transition-colors hover:text-paper"
-              >
-                Résumé <ArrowUpRight />
-              </a>
-            </div>
+
+          {/* Right: form */}
+          <div className="p-8 md:p-10">
+            <ContactForm />
           </div>
         </div>
       </Reveal>

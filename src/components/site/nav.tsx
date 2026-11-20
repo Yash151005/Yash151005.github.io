@@ -171,6 +171,7 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
   const commands: Command[] = useMemo(
     () => [
       ...sections.map((s) => ({ label: `Go to ${s.label}`, hint: `#${s.id}`, group: "Navigate", run: () => go(s.id) })),
+      { label: "Send a message", hint: "contact form", group: "Actions", run: () => go("contact") },
       {
         label: "Copy email address",
         hint: profile.email,

@@ -137,6 +137,62 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
   );
 }
 
+function ProjectGrid() {
+  const [filter, setFilter] = useState("all");
+  const tabs = [{ id: "all", label: "All" }, ...projectGroups.map((g) => ({ id: g.id, label: g.label }))];
+  const projects = projectGroups.filter((g) => filter === "all" || g.id === filter).flatMap((g) => g.projects);
+
+  return (
+    <div className="mt-14">
+      <Reveal className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div role="tablist" aria-label="Filter projects" className="flex flex-wrap gap-1 rounded-full border border-line bg-ink-2/70 p-1">
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              role="tab"
+              aria-selected={filter === t.id}
+              onClick={() => setFilter(t.id)}
+              className={cn(
+                "relative rounded-full px-3.5 py-1.5 text-[13px] transition-colors",
+                filter === t.id ? "text-paper" : "text-dim hover:text-paper"
+              )}
+            >
+              {filter === t.id && (
+                <motion.span
+                  layoutId="project-filter"
+                  className="absolute inset-0 -z-10 rounded-full bg-ink-3 ring-1 ring-signal/30"
+                  transition={{ duration: 0.4, ease: EASE }}
+                />
+              )}
+              {t.label}
+            </button>
+          ))}
+        </div>
+        <span className="font-mono text-[11px] text-mute">
+          {projects.length} selected project{projects.length === 1 ? "" : "s"}
+        </span>
+      </Reveal>
+
+      <motion.div layout className="grid gap-4 sm:grid-cols-2">
+        <AnimatePresence mode="popLayout" initial={false}>
+          {projects.map((p) => (
+            <motion.div
+              key={p.slug}
+              layout
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.35, ease: EASE }}
+            >
+              <ProjectCard p={p} i={0} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+    </div>
+  );
+}
+
 function MoreProjects() {
   const [open, setOpen] = useState(false);
   const count = moreProjects.reduce((n, g) => n + g.projects.length, 0);
@@ -263,19 +319,7 @@ export function Work() {
         </article>
       </Reveal>
 
-      {projectGroups.map((g) => (
-        <div key={g.id} className="mt-14">
-          <Reveal className="mb-4 flex items-baseline justify-between gap-3 border-b border-line pb-3">
-            <h3 className="text-base font-semibold tracking-tight">{g.label}</h3>
-            <span className="font-mono text-[11px] text-mute">{g.focus}</span>
-          </Reveal>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {g.projects.map((p, i) => (
-              <ProjectCard key={p.slug} p={p} i={i} />
-            ))}
-          </div>
-        </div>
-      ))}
+      <ProjectGrid />
 
       <MoreProjects />
     </Section>
