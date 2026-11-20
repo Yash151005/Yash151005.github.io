@@ -1,15 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
+  trailingSlash: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.pexels.com',
-        port: '',
-        pathname: '/photos/**',
-      },
-    ],
+    unoptimized: true,
   },
 };
 
-module.exports = nextConfig; 
+module.exports = nextConfig;
