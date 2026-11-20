@@ -3,7 +3,7 @@ export const profile = {
   role: "AI Engineer, Data Scientist & Software Developer",
   location: "Pune, India",
   timezone: "Asia/Kolkata",
-  email: "yashpakale99@gmail.com",
+  email: "yashpakale56@gmail.com",
   phone: "+91 82080 27577",
   resume: "/resume.pdf",
   github: "https://github.com/Yash151005",
