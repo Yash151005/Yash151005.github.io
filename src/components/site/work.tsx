@@ -169,7 +169,7 @@ function ProjectGrid() {
           ))}
         </div>
         <span className="font-mono text-[11px] text-mute">
-          {projects.length} selected project{projects.length === 1 ? "" : "s"}
+          {projects.length} project{projects.length === 1 ? "" : "s"}
         </span>
       </Reveal>
 

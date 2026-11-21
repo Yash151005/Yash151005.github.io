@@ -43,7 +43,9 @@ export function Recognition() {
                 {r.place}
               </span>
               <div className="min-w-0">
-                <div className="truncate text-sm font-medium">{r.title}</div>
+                <div className="line-clamp-2 text-sm font-medium" title={r.title}>
+                  {r.title}
+                </div>
                 <div className="truncate text-xs text-dim">{r.org}</div>
               </div>
             </div>

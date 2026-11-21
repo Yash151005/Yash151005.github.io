@@ -39,7 +39,7 @@ export const featured: Project = {
 
 export type ProjectGroup = { id: string; label: string; focus: string; projects: Project[] };
 
-/** Selected work, grouped by discipline. */
+/** Featured work, grouped by discipline. */
 export const projectGroups: ProjectGroup[] = [
   {
     id: "ai",
@@ -253,6 +253,8 @@ export const recognition = [
   { year: "2024", place: "2nd", title: "GDG Generative AI Quiz", org: "Google Developer Groups" },
   { year: "2024", place: "3rd", title: "State-Level Engineers' Day Quiz", org: "Institution of Engineers (India)" },
   { year: "2024", place: "Cert.", title: "Artificial Intelligence Bootcamp", org: "C-DAC Pune" },
+  { place: "Cert.", title: "RAG & Agentic AI Professional Certificate", org: "IBM" },
+  { place: "Cert.", title: "Full Stack Software Developer Professional Certificate", org: "IBM" },
 ];
 
 export const stack = [
