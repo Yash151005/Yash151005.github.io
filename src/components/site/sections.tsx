@@ -102,6 +102,16 @@ export function About() {
           <div className="mt-6 border-t border-line pt-5 text-xs font-medium text-dim">Industry</div>
           <div className="mt-2 text-sm font-medium">Rubiscape</div>
           <div className="text-xs text-dim">DataForge AI, data preparation pipeline</div>
+          <div className="mt-4 flex items-center gap-2 text-sm font-medium">
+            Forbes Marshall
+            <span className="rounded-full border border-signal/40 px-2 py-0.5 font-mono text-[10px] font-normal text-signal">
+              Ongoing
+            </span>
+          </div>
+          <ul className="mt-1 space-y-0.5 text-xs text-dim">
+            <li>Daily Meeting Management</li>
+            <li>Daily Work Management</li>
+          </ul>
         </Reveal>
       </div>
     </Section>
