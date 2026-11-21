@@ -7,7 +7,7 @@ export const profile = {
   phone: "+91 82080 27577",
   resume: "/resume.pdf",
   github: "https://github.com/Yash151005",
-  linkedin: "https://www.linkedin.com/in/yash-pakale-12a63a257",
+  linkedin: "https://www.linkedin.com/in/yash-pakale",
   instagram: "https://www.instagram.com/yashpakale.swami",
 };
 
@@ -277,6 +277,6 @@ export const stack = [
 ];
 
 export const education = [
-  { period: "2024 – 2027", title: "B.Tech, Artificial Intelligence & Data Science", place: "VIIT, Pune" },
-  { period: "2021 – 2024", title: "Diploma, Computer Technology", place: "Government Polytechnic, Solapur" },
+  { period: "2024 – 2027", title: "B.Tech, Artificial Intelligence & Data Science", place: "VIIT, Pune", score: "CGPA 9.34" },
+  { period: "2021 – 2024", title: "Diploma, Computer Technology", place: "Government Polytechnic, Solapur", score: "91.89%" },
 ];

@@ -95,7 +95,10 @@ export function About() {
                 />
                 <div className="font-mono text-[11px] text-mute">{e.period}</div>
                 <div className="mt-1 text-sm font-medium">{e.title}</div>
-                <div className="text-xs text-dim">{e.place}</div>
+                <div className="text-xs text-dim">
+                  {e.place}
+                  {"score" in e && e.score ? <span className="font-mono text-signal"> · {e.score}</span> : null}
+                </div>
               </li>
             ))}
           </ol>
